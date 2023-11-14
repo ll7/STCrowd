@@ -1,7 +1,7 @@
 import json
 
 base_name = 'STCrowd_official/anno/'
-file_name = '1.json'
+file_name = '13.json'
 file_path = base_name + file_name
 
 with open(file_path, 'r') as file:
@@ -27,21 +27,28 @@ plt.show() """
 movements = {}  # Dictionary to store movements
 
 for frame in data['frames']:
+    frame_id = frame['frameId']
     for item in frame['items']:
         if item['category'] == 'person':
             person_id = item['id']
             if person_id not in movements:
                 movements[person_id] = []
-            movements[person_id].append((item['position']['x'], item['position']['y']))
+            # Append a tuple of (x position, y position, frameId)
+            movements[person_id].append((item['position']['x'], item['position']['y'], frame_id))
 
 import matplotlib.pyplot as plt
 
+# Assuming movements dictionary is already populated
 for person_id, positions in movements.items():
-    # Unpack positions into separate x and y lists
-    x_positions, y_positions = zip(*positions)
+    # Extract x, y positions and frameIds
+    x_positions, y_positions, frame_ids = zip(*positions)
     
-    # Plot each person's path
+    # Plot the trajectory for each person
     plt.plot(x_positions, y_positions, marker='o', label=person_id)
+
+    # Annotate each point with its frameId
+    for x, y, frame_id in positions:
+        plt.annotate(str(frame_id), (x, y))
 
 plt.xlabel('X Position')
 plt.ylabel('Y Position')
