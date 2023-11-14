@@ -7,6 +7,10 @@
 Our website can be download from the [Homepage](https://4dvlab.github.io).
 
 Also the dataset can be directly download from [STCrowd DATA](https://drive.google.com/file/d/1cw8Ats2jYSkUK-g-5lumF2pY_NKSehKS/view?usp=sharing) .
+
+To achieve good cross-modal data alignment between different sensors, the timestamp of the LiDAR is the time when the full rotation of current frame is achieved and the correspond of timestamps for different devices is achieved by special posture when recording data. We keep the common frequency as 5 Hz and annotate the frames per 0.4 second.(The raw data extracted the timestamp information directly from ros, so the image timestamp and liDAR would be different in name due to ROS delay, but we took this delay into account in synchronization to complete the corresponding (corresponding in JSON file).)
+
+
 ## Installation
 
 ### Requirements
